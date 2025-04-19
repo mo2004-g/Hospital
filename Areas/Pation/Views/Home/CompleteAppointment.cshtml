@@ -1,0 +1,42 @@
+﻿@model HistoryofDate 
+
+@{
+    ViewData["Title"] = "Complete Appointment";
+}
+
+
+<h1>Complete Appointment with Doctor @ViewBag.Doctor.Name</h1>
+
+<form asp-action="CompleteAppointment" asp-controller="Home" asp-area="Pation" >
+    <input type="hidden" name="DocId" value="@ViewBag.Doctor.Id" />
+    
+    <div class="form-group">
+        <label>Patient Name:</label>
+        <input type="text" class="form-control" value="@User.Identity.Name"  />
+        <input type="hidden" asp-for="Name" value="@User.Identity.Name" />
+    </div>
+
+    
+    <div class="form-group">
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate">
+    </div>
+    <div class="form-group">
+        <label for="appointmentTime">Appointment Time:</label>
+        <input type="time" class="form-control" id="appointmentTime" name="appointmentTime">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" id="submitBtn">Complete Appointment</button>
+</form>
+
+
+
+    @section scripts{
+
+    <partial name="_ValidationScriptsPartial.cshtml">
+
+            <script>
+                toastr.Success('@TempData["notification"]');');
+            </script>
+        
+    }

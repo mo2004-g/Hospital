@@ -1,0 +1,102 @@
+﻿<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h1>All Appointments</h1>
+
+            <div class="d-flex gap-2">
+                <a class="btn btn-success" href="/Admin/Appointments/Create">Create New</a>
+                <button class="btn btn-danger btn-sm" onclick="confirmDeleteAll()">Delete All</button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark text-white">
+                            <th scope="col">#</th>
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col">Doctor Specialization</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Day</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.Id</th>
+                                <td>@item.Doctor.Name</td>
+                                <td>@item.Doctor.Specialization</td>
+                                <td>@item.Name</td>
+                                <td>@item.Day</td>
+                                <td>@item.Time</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="/Admin/Appointments/Edit?pationid=@item.Id">Edit</a>
+                                    <button class="btn btn-danger btn-sm" onclick=" confirmDelete(@item.Id)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        function confirmDelete(pationId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/Admin/Appointments/Delete?PationId=' + pationId;
+                }
+            })
+        }
+    </script>
+ 
+    <script>
+        function confirmDeleteAll() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This will delete ALL records!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete all!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/Admin/Appointments/DeleteAll';
+                }
+            });
+        }
+
+    </script>
+
+   
+     @if (TempData["notification"] != null)
+     {
+    <script>
+        toastr.success('@TempData["notification"]')
+    </script>
+    
+     }
+    
+
+}

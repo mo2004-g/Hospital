@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HistoryofDate>
+@{
+    ViewData["Title"] = "Reservations Management";
+}
+
+<h1>Reservations Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Doctor Name</th>
+            <th>Doctor Specialization</th>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@item.Doctor.Name</td>
+                <td>@item.Doctor.Specialization</td>
+                <td>@item.Name</td>
+                <td>@item.Day</td>
+                <td>@item.Time</td>
+            </tr>
+        </tbody>
+    }
+</table>

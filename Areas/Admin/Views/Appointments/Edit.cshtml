@@ -1,0 +1,58 @@
+﻿@model HistoryofDate
+<div class="container my-3">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h1>Edit Pation</h1>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <form asp-area="Admin" asp-action="Edit" asp-controller="Appointments">
+                <input type="hidden" class="form-control" name="Id" value="@Model.Id">
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Doctor Name</label>
+                    <input type="text"  class="form-control" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Day" class="form-label"> Day</label>
+                    <input type="date"  class="form-control" asp-for="Day">
+                    <span class="text-danger" asp-validation-for="Day"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Time" class="form-label">Time</label>
+                    <input type="time"  class="form-control" asp-for="Time">
+                    <span class="text-danger" asp-validation-for="Time"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="DoctorId" class="form-label"> Doctor Name</label>
+                    <select name="DoctorId"  class="form-select">
+                        @foreach (var item in ViewData["Doctor"] as List<Doctor>)
+                        {
+                            if (item.Id == Model.DoctorId)
+                            {
+                                <option value="@item.Id" selected>@item.Name - @item.Specialization</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name - @item.Specialization</option>
+                            }
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="DoctorId"></span>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        toastr.Success('@TempData["notification"]');');
+    </script>
+}
+                          

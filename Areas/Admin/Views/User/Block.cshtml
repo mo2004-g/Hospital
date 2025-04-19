@@ -1,0 +1,38 @@
+﻿@model ApplicationUser
+
+<form asp-action="Block" asp-controller="User" asp-area="Admin" class="border p-3 rounded shadow-sm bg-light">
+    <input type="hidden" name="userId" value="@Model.Id" />
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Years:</label>
+            <input type="number" name="year" class="form-control" value="0" min="0" />
+        </div>
+        <div class="col-md-2">
+            <label>Months:</label>
+            <input type="number" name="month" class="form-control" value="0" min="0" />
+        </div>
+        <div class="col-md-2">
+            <label>Days:</label>
+            <input type="number" name="day" class="form-control" value="0" min="0" />
+        </div>
+        <div class="col-md-2">
+            <label>Hours:</label>
+            <input type="number" name="hour" class="form-control" value="0" min="0" />
+        </div>
+        
+    </div>
+
+    <button type="submit" class="btn btn-danger mt-3">Block User</button>
+</form>
+@section scripts
+ {
+    @* <script> *@
+    @*     toastr.success('@TempData["notification"]') *@
+    @* </script> *@
+    @* <script> *@
+    @*     toastr.error('@TempData["Error"]') *@
+
+    @* </script> *@
+
+ }

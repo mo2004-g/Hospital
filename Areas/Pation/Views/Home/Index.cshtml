@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Welcome to  Hospital";
+}
+@section scripts{
+     @if (TempData["notification"] != null)
+{
+    <script>
+        toastr.success('@TempData["notification"]')
+    </script>
+    
+}
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            toastr.error('@TempData["Error"]')
+        </script>
+
+    }
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome to Our Hospital</h1>
+
+    <ul class="list-group">
+        <li class="nav-item">
+            <a class="list-group-item" asp-action="BookAppointment">Book Appointment</a>
+        </li>
+        <li class="nav-item">
+            <a class="list-group-item" asp-action="ReservationsManagement">Reservations Management</a>
+        </li>
+        
+    </ul>
+ 
+
