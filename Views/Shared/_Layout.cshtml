@@ -21,7 +21,7 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item"> <a class="nav-link" >Welcome  @User.Identity.Name</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/Pation/Home/Profile">Welcome  @User.Identity.Name</a></li>
                         <li class="nav-item"> <a class="nav-link" href="/identity/Account/Logout">Logout</a></li>
                     }
                     else

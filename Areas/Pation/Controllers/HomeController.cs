@@ -18,12 +18,14 @@ namespace Hos.Controllers
         private readonly IAppointmentsRepositry appointmentsRepositry;
         private readonly IDoctorRepositry doctorRepositry;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IProfilrRepositry _profilrRepositry;
         private readonly ILogger<HomeController> _logger;
-        public HomeController(IAppointmentsRepositry appointmentsRepositry, IDoctorRepositry doctorRepositry,UserManager<ApplicationUser> userManager, ILogger<HomeController> logger)
+        public HomeController(IProfilrRepositry profilrRepositry,IAppointmentsRepositry appointmentsRepositry, IDoctorRepositry doctorRepositry,UserManager<ApplicationUser> userManager, ILogger<HomeController> logger)
         {
             this.appointmentsRepositry = appointmentsRepositry;
             this.doctorRepositry = doctorRepositry;
             this._userManager = userManager;
+            this._profilrRepositry = profilrRepositry;
             _logger = logger;
         }
 
@@ -51,10 +53,18 @@ namespace Hos.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult CompleteAppointment(string Name,DateOnly appointmentDate,TimeOnly appointmentTime, int DocId)
+        public IActionResult CompleteAppointment(string Name,DateOnly? appointmentDate,TimeOnly? appointmentTime, int DocId)
         {
+            
+            
             if (ModelState.IsValid)
             {
+                if (appointmentDate == null || appointmentTime == null)
+                {
+                    TempData["Error"] = "„‰ ›÷·ﬂ √œŒ· «· «—ÌŒ Ê«·Êﬁ ";
+                    return RedirectToAction("Index");
+                }
+
                 if (appointmentDate < DateOnly.FromDateTime(DateTime.Today))
                 {
                     TempData["Error"] = "·« Ì„ﬂ‰ ÕÃ“ „Ê«⁄Ìœ ›Ì √Ì«„ ”«»ﬁ…";
@@ -80,6 +90,8 @@ namespace Hos.Controllers
                 TempData["notification"] = " „ «·ÕÃ“ »‰Ã«Õ";
 
                 return RedirectToAction("Index");
+
+               
             }
             return View();
         }
@@ -89,6 +101,37 @@ namespace Hos.Controllers
         {
             var his = appointmentsRepositry.Get(includes: [e => e.Doctor] );
             return View(his.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult Profile(string userid)
+        {
+            var user = _userManager.FindByIdAsync(userid);
+            var users = new Profile
+            {
+                Name = "Mohamed Galal",
+                Image = "~/images/mf2.jpg" // √Ê ﬁÌ„… ÕﬁÌﬁÌ…
+            };
+
+            return View(users);
+        }
+        [HttpGet]
+        public IActionResult EditProfile(string userid)
+        {
+            var user = _userManager.FindByIdAsync(userid);
+            return View(new Profile());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProfile(Profile profile, IFormFile? file)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                
+            }
+
+            return View(profile);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

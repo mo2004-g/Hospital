@@ -1,0 +1,36 @@
+﻿@model Profile
+
+<div style="max-width: 600px; margin: 40px auto; padding: 20px; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); font-family: sans-serif;">
+    <div style="text-align: center;">
+        <img src="@Url.Content(Model.Image ?? "~/image/mf2.jpg")"
+             onerror="this.onerror=null; this.src='/image/mf2.jpg';"
+             style="width:120px; height:120px; border-radius:50%; object-fit:cover;" />
+
+        <h2 style="margin-top: 10px;">@User.Identity.Name</h2>
+    </div>
+    <hr />
+    <div style="padding: 10px 0;">
+        <p><strong>Email:</strong>@Model.Email </p>
+        <p><strong>Phone:</strong>@Model.PhoneNumber </p>
+        <p><strong>Address:</strong>@Model.Address </p>
+        @if (Model.Diseases != null && Model.Diseases.Any())
+        {
+            <p><strong>Diseases:</strong></p>
+            <ul>
+                @foreach (var disease in Model.Diseases)
+                {
+                    <li>@disease</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p><strong>Diseases:</strong> لا توجد بيانات</p>
+        }
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/Pation/Home/EditProfile" class="btn btn-primary mt-4 px-4 rounded-pill">
+            ✏️ Edit Profile
+        </a>
+    </div>
+</div>

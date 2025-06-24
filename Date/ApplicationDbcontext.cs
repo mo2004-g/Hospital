@@ -9,6 +9,8 @@ namespace Hos.Date
     {
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<HistoryofDate> HistoryofDates { get; set; }
+        public DbSet<Profile> profiles { get; set; }
+
 
         public ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) :base(options)
         {

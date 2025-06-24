@@ -4,5 +4,6 @@ namespace Hos.Reposiories.IReposiories
 {
     public interface IDoctorRepositry : IRepositry<Doctor>
     {
+        
     }
 }

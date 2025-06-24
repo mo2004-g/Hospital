@@ -34,6 +34,7 @@ namespace Hos
             builder.Services.AddScoped<IDoctorRepositry , DoctorRepositry>();
             builder.Services.AddScoped<IAppointmentsRepositry , AppointmentsRepositry>();
             builder.Services.AddScoped<IAppliationUserReposity, AppliationUserReposity>();
+            builder.Services.AddScoped<IProfilrRepositry , ProfilrRepositry>();
 
             var app = builder.Build();
 
